@@ -1,22 +1,688 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sinan Portfolio</title>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sinan Studio</title>
 
-    <!-- Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BWCMV04QMG"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-BWCMV04QMG');
-    </script>
-  </head>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#020617;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#2563eb;
+    border-radius:20px;
+}
+
+/* Navbar */
+nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    padding:20px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:rgba(0,0,0,0.3);
+    backdrop-filter:blur(10px);
+    z-index:1000;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.logo{
+    font-size:28px;
+    font-weight:700;
+    color:#60a5fa;
+}
+
+nav ul{
+    display:flex;
+    gap:30px;
+    list-style:none;
+}
+
+nav ul li a{
+    color:white;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+nav ul li a:hover{
+    color:#60a5fa;
+}
+
+/* Hero */
+.hero{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    position:relative;
+    padding:0 20px;
+    overflow:hidden;
+}
+
+.hero::before{
+    content:'';
+    position:absolute;
+    width:700px;
+    height:700px;
+    background:radial-gradient(circle,#2563eb55,transparent 70%);
+    top:-200px;
+    left:-150px;
+    animation:move 8s infinite alternate;
+}
+
+.hero::after{
+    content:'';
+    position:absolute;
+    width:600px;
+    height:600px;
+    background:radial-gradient(circle,#06b6d455,transparent 70%);
+    bottom:-200px;
+    right:-150px;
+    animation:move2 8s infinite alternate;
+}
+
+@keyframes move{
+    100%{
+        transform:translateY(60px) translateX(60px);
+    }
+}
+
+@keyframes move2{
+    100%{
+        transform:translateY(-60px) translateX(-60px);
+    }
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+}
+
+.hero p{
+    letter-spacing:5px;
+    color:#93c5fd;
+    margin-bottom:20px;
+    text-transform:uppercase;
+}
+
+.hero h1{
+    font-size:80px;
+    margin-bottom:20px;
+}
+
+.hero h1 span{
+    color:#3b82f6;
+}
+
+.hero-desc{
+    max-width:700px;
+    margin:auto;
+    color:#cbd5e1;
+    line-height:1.8;
+    font-size:18px;
+    margin-bottom:40px;
+}
+
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    padding:15px 35px;
+    border-radius:50px;
+    text-decoration:none;
+    transition:0.4s;
+    font-weight:600;
+}
+
+.btn-primary{
+    background:#2563eb;
+    color:white;
+    box-shadow:0 0 25px #2563eb55;
+}
+
+.btn-primary:hover{
+    transform:translateY(-5px);
+    background:#3b82f6;
+}
+
+.btn-outline{
+    border:1px solid #3b82f6;
+    color:white;
+}
+
+.btn-outline:hover{
+    background:#2563eb22;
+}
+
+/* Sections */
+section{
+    padding:120px 8%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:60px;
+}
+
+.section-title h2{
+    font-size:45px;
+    color:#60a5fa;
+    margin-bottom:10px;
+}
+
+/* About */
+.about{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:50px;
+    align-items:center;
+}
+
+.about-card{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    padding:40px;
+    border-radius:30px;
+    backdrop-filter:blur(10px);
+    transition:0.4s;
+}
+
+.about-card:hover{
+    transform:translateY(-10px);
+}
+
+.about p{
+    color:#cbd5e1;
+    line-height:1.8;
+}
+
+/* Services */
+.services{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+    margin-top:40px;
+}
+
+.service-box{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    padding:35px;
+    border-radius:25px;
+    transition:0.4s;
+    text-align:center;
+}
+
+.service-box:hover{
+    transform:translateY(-10px);
+    border-color:#3b82f6;
+}
+
+.service-box h3{
+    margin:20px 0;
+}
+
+/* Project */
+.project-card{
+    background:rgba(255,255,255,0.05);
+    border-radius:30px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,0.08);
+    transition:0.4s;
+}
+
+.project-card:hover{
+    transform:scale(1.02);
+}
+
+.project-card img{
+    width:100%;
+    height:400px;
+    object-fit:cover;
+}
+
+.project-content{
+    padding:40px;
+}
+
+.project-content p{
+    color:#cbd5e1;
+    margin:20px 0;
+    line-height:1.8;
+}
+
+/* Contact */
+.contact-form{
+    max-width:800px;
+    margin:auto;
+    display:grid;
+    gap:20px;
+}
+
+.contact-form input,
+.contact-form textarea{
+    width:100%;
+    padding:18px;
+    border:none;
+    outline:none;
+    border-radius:15px;
+    background:#0f172a;
+    color:white;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.contact-form button{
+    padding:18px;
+    border:none;
+    border-radius:15px;
+    background:#2563eb;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    transition:0.4s;
+}
+
+.contact-form button:hover{
+    background:#3b82f6;
+}
+
+/* Footer */
+footer{
+    padding:30px;
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,0.08);
+}
+
+.insta-link{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    color:white;
+    text-decoration:none;
+    font-size:18px;
+    transition:0.4s;
+}
+
+.insta-link:hover{
+    color:#60a5fa;
+    transform:translateY(-3px);
+}
+
+/* Animation */
+.hidden{
+    opacity:0;
+    transform:translateY(40px);
+    transition:all 1s;
+}
+
+.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* Responsive */
+@media(max-width:768px){
+
+nav{
+    padding:20px;
+}
+
+nav ul{
+    gap:15px;
+}
+
+.hero h1{
+    font-size:50px;
+}
+
+.section-title h2{
+    font-size:35px;
+}
+
+.project-card img{
+    height:250px;
+}
+
+}
+.project-card{
+    background:rgba(255,255,255,0.05);
+    border-radius:30px;
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,0.08);
+    transition:0.4s;
+    max-width:1100px;
+    margin:auto;
+    backdrop-filter:blur(10px);
+}
+
+.project-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 20px 60px rgba(37,99,235,0.25);
+}
+
+.project-card img{
+    width:100%;
+    height:450px;
+    object-fit:cover;
+}
+
+.project-content{
+    padding:50px;
+}
+
+.project-content h2{
+    font-size:40px;
+    margin-bottom:20px;
+    color:#60a5fa;
+}
+
+.project-content p{
+    color:#cbd5e1;
+    line-height:1.9;
+    font-size:17px;
+}
+#status{
+    margin-top:15px;
+    font-size:16px;
+    font-weight:500;
+}
+</style>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+emailjs.init("MMb4Icy9oEVFhF-Rd");
+</script>
+<script>
+
+const form = document.getElementById("contact-form");
+const statusText = document.getElementById("status");
+
+form.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    statusText.innerHTML = "Sending Message...";
+
+    emailjs.sendForm(
+        "service_eha6o3w",
+        "template_zl3od7s",
+        this
+    )
+
+    .then(() => {
+
+        statusText.innerHTML = "Message Sent Successfully ✅";
+        statusText.style.color = "#4ade80";
+
+        form.reset();
+
+    })
+
+    .catch((error) => {
+
+        statusText.innerHTML = "Failed To Send ❌";
+        statusText.style.color = "#f87171";
+
+        console.log(error);
+
+    });
+
+});
+
+</script>
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">Sinan Premium Invites</div>
+
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#project">Project</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+
+<div class="hero-content hidden">
+    <p>Creative Web Designer</p>
+
+    <h1>Sinan <span>U</span></h1>
+
+    <div class="hero-desc">
+        I create premium wedding invitation websites, save-the-date pages,
+        birthday websites and elegant digital experiences with smooth animations.
+    </div>
+
+    <div class="buttons">
+        <a href="#project" class="btn btn-primary">View Project</a>
+        <a href="#contact" class="btn btn-outline">Contact Me</a>
+    </div>
+</div>
+
+</section>
+
+<!-- About -->
+<section id="about">
+
+<div class="section-title hidden">
+    <h2>About Me</h2>
+    <p>Modern Event Website Designer</p>
+</div>
+
+<div class="about">
+
+    <div class="about-card hidden">
+        <h2 style="margin-bottom:20px;">Who Am I?</h2>
+
+        <p>
+            I design elegant wedding invitation websites with animations,
+            countdowns, galleries, music and modern responsive layouts.
+            My goal is creating unforgettable digital experiences for events.
+        </p>
+    </div>
+
+    <div class="about-card hidden">
+        <h2 style="margin-bottom:20px;">Services</h2>
+
+        <div class="services">
+
+            <div class="service-box">
+                <h3>Wedding Websites</h3>
+            </div>
+
+            <div class="service-box">
+                <h3>Save The Date</h3>
+            </div>
+
+            <div class="service-box">
+                <h3>Birthday Websites</h3>
+            </div>
+
+            
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+<!-- PROJECT SECTION -->
+<section id="project">
+
+    <div class="section-title hidden">
+        <h2>My Project</h2>
+        <p>Premium Wedding Invitation Website</p>
+    </div>
+
+    <div class="project-card hidden">
+
+       
+
+        <div class="project-content">
+
+            <h2>Shiama & Junaid Wedding Website</h2>
+
+            <p>
+                Elegant cinematic wedding invitation website with countdown,
+                animations, smooth transitions, premium typography and
+                romantic design experience.
+            </p>
+
+            <div style="display:flex; gap:20px; flex-wrap:wrap; margin-top:25px;">
+
+                <a href="https://s09894355-lgtm.github.io/shiamasheri-junaid/" 
+                target="_blank" 
+                class="btn btn-primary">
+                    View Live Website
+                </a>
+
+                <a href="#contact" class="btn btn-outline">
+                    Hire Me
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>
+
+</section>
+
+<!-- Contact -->
+<section id="contact">
+
+<div class="section-title hidden">
+    <h2>Contact Me</h2>
+</div>
+<form id="contact-form" class="contact-form hidden">
+
+    <input 
+    type="text" 
+    name="from_name"
+    placeholder="Your Name" 
+    required>
+
+    <input 
+    type="email" 
+    name="from_email"
+    placeholder="Your Email" 
+    required>
+
+    <textarea 
+    rows="6" 
+    name="message"
+    placeholder="Your Message"
+    required></textarea>
+
+    <button type="submit">
+        Send Message
+    </button>
+
+    <p id="status"></p>
+
+</form>
+<!-- FOOTER -->
+<footer>
+
+    <a href="https://www.instagram.com/sinan._u/" target="_blank" class="insta-link">
+
+        <svg xmlns="http://www.w3.org/2000/svg" 
+        width="26" 
+        height="26" 
+        fill="currentColor" 
+        viewBox="0 0 16 16">
+
+        <path d="M8 0C5.829 0 5.556.01 4.703.048 
+        3.85.088 3.269.222 2.76.42a3.92 
+        3.92 0 0 0-1.417.923A3.92 3.92 
+        0 0 0 .42 2.76c-.198.509-.332 
+        1.09-.372 1.943C.01 5.556 0 5.829 
+        0 8c0 2.171.01 2.444.048 3.297.04.853.174 
+        1.434.372 1.943.205.527.478.974.923 
+        1.417.443.445.89.718 1.417.923.509.198 
+        1.09.332 1.943.372C5.556 15.99 5.829 16 
+        8 16c2.171 0 2.444-.01 3.297-.048.853-.04 
+        1.434-.174 1.943-.372a3.92 3.92 0 0 0 
+        1.417-.923 3.92 3.92 0 0 0 .923-1.417c.198-.509.332-1.09.372-1.943C15.99 
+        10.444 16 10.171 16 8c0-2.171-.01-2.444-.048-3.297-.04-.853-.174-1.434-.372-1.943a3.92 
+        3.92 0 0 0-.923-1.417A3.92 3.92 0 0 0 
+        13.24.42c-.509-.198-1.09-.332-1.943-.372C10.444.01 
+        10.171 0 8 0zm0 1.441c2.136 0 2.389.008 
+        3.232.047.78.036 1.204.166 1.486.276.373.145.64.319.92.599.28.28.454.547.599.92.11.282.24.706.276 
+        1.486.039.843.047 1.096.047 3.232s-.008 
+        2.389-.047 3.232c-.036.78-.166 1.204-.276 
+        1.486a2.48 2.48 0 0 1-.599.92 2.48 2.48 
+        0 0 1-.92.599c-.282.11-.706.24-1.486.276-.843.039-1.096.047-3.232.047s-2.389-.008-3.232-.047c-.78-.036-1.204-.166-1.486-.276a2.48 
+        2.48 0 0 1-.92-.599 2.48 2.48 0 0 1-.599-.92c-.11-.282-.24-.706-.276-1.486C1.449 
+        10.389 1.441 10.136 1.441 8s.008-2.389.047-3.232c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.547-.454.92-.599.282-.11.706-.24 
+        1.486-.276C5.611 1.449 5.864 1.441 8 1.441zm0 
+        2.459A4.1 4.1 0 1 0 8 12.1 4.1 4.1 0 0 0 
+        8 3.9zm0 6.759A2.659 2.659 0 1 1 8 
+        5.341a2.659 2.659 0 0 1 0 5.318zm4.268-6.964a.96.96 
+        0 1 1-1.92 0 .96.96 0 0 1 1.92 0z"/>
+        </svg>
+
+        <span>@sinan._u</span>
+
+    </a>
+
+</footer>
+
+<script>
+
+/* Scroll Animation */
+
+const hiddenElements = document.querySelectorAll('.hidden');
+
+const observer = new IntersectionObserver((entries)=>{
+    entries.forEach((entry)=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add('show');
+        }
+    });
+});
+
+hiddenElements.forEach((el)=>observer.observe(el));
+
+</script>
+
+</body>
 </html>
