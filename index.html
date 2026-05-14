@@ -413,7 +413,66 @@ nav ul{
     font-size:16px;
     font-weight:500;
 }
+.book-box{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+    padding:60px 40px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:30px;
+    backdrop-filter:blur(10px);
+}
+
+.book-box h3{
+    font-size:32px;
+    margin-bottom:30px;
+    color:#60a5fa;
+}
+
+.book-services{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-bottom:30px;
+}
+
+.book-services span{
+    padding:12px 20px;
+    border-radius:50px;
+    background:#2563eb22;
+    border:1px solid #3b82f6;
+    color:#93c5fd;
+}
+
+.book-box p{
+    color:#cbd5e1;
+    line-height:1.8;
+    margin-bottom:40px;
+}
+
+.whatsapp-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    padding:18px 35px;
+    background:#25D366;
+    color:white;
+    text-decoration:none;
+    border-radius:50px;
+    font-size:18px;
+    font-weight:600;
+    transition:0.4s;
+}
+
+.whatsapp-btn:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 30px rgba(37,211,102,0.4);
+}
 </style>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
@@ -628,6 +687,46 @@ form.addEventListener("submit", function(e){
 <div class="section-title hidden">
     <h2>Contact Me</h2>
 </div>
+<!-- BOOK WORK SECTION -->
+<section id="book-work">
+
+    <div class="section-title hidden">
+        <h2>Book My Work</h2>
+        <p>Let’s Create Your Premium Event Website</p>
+    </div>
+
+    <div class="book-box hidden">
+
+        <h3>Available For</h3>
+
+        <div class="book-services">
+
+            <span>Wedding Websites</span>
+            <span>Save The Date</span>
+            <span>Birthday Websites</span>
+            <span>Housewarming Invites</span>
+            <span>Portfolio Websites</span>
+
+        </div>
+
+        <p>
+            Click the button below to chat directly with me on WhatsApp
+            for bookings and project discussions.
+        </p>
+
+        <a 
+        href="https://wa.me/918590594972"
+        target="_blank"
+        class="whatsapp-btn">
+
+            <i class="fa-brands fa-whatsapp"></i>
+            Book Now On WhatsApp
+
+        </a>
+
+    </div>
+
+</section>
 <form id="contact-form" class="contact-form hidden">
 
     <input 
