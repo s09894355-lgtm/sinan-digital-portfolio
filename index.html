@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Sinan Premium Invites</title>
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
 <style>
+
 *{
     margin:0;
     padding:0;
@@ -23,17 +28,56 @@ body{
     overflow-x:hidden;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar{
-    width:8px;
+/* PARTICLES */
+#particles-js{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    z-index:-2;
 }
 
-::-webkit-scrollbar-thumb{
-    background:#2563eb;
-    border-radius:20px;
+/* GLOW */
+.glow{
+    position:fixed;
+    width:300px;
+    height:300px;
+    background:radial-gradient(circle,#2563eb55,transparent 70%);
+    border-radius:50%;
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+    z-index:-1;
 }
 
-/* Navbar */
+/* LOADER */
+#loader{
+    position:fixed;
+    width:100%;
+    height:100vh;
+    background:#020617;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+}
+
+.loader-ring{
+    width:80px;
+    height:80px;
+    border:6px solid rgba(255,255,255,0.1);
+    border-top:6px solid #3b82f6;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    100%{
+        transform:rotate(360deg);
+    }
+}
+
+/* NAVBAR */
 nav{
     position:fixed;
     top:0;
@@ -45,13 +89,15 @@ nav{
     background:rgba(0,0,0,0.3);
     backdrop-filter:blur(10px);
     z-index:1000;
-    border-bottom:1px solid rgba(255,255,255,0.1);
+    border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
 .logo{
-    font-size:28px;
+    font-size:30px;
     font-weight:700;
-    color:#60a5fa;
+    background:linear-gradient(90deg,#60a5fa,#06b6d4,#3b82f6);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
 }
 
 nav ul{
@@ -63,14 +109,20 @@ nav ul{
 nav ul li a{
     color:white;
     text-decoration:none;
-    transition:0.3s;
+    transition:0.4s;
 }
 
 nav ul li a:hover{
     color:#60a5fa;
 }
 
-/* Hero */
+.menu-btn{
+    display:none;
+    font-size:28px;
+    cursor:pointer;
+}
+
+/* HERO */
 .hero{
     height:100vh;
     display:flex;
@@ -78,42 +130,18 @@ nav ul li a:hover{
     align-items:center;
     text-align:center;
     position:relative;
-    padding:0 20px;
     overflow:hidden;
+    padding:0 20px;
 }
 
-.hero::before{
-    content:'';
+.hero-video{
     position:absolute;
-    width:700px;
-    height:700px;
-    background:radial-gradient(circle,#2563eb55,transparent 70%);
-    top:-200px;
-    left:-150px;
-    animation:move 8s infinite alternate;
-}
-
-.hero::after{
-    content:'';
-    position:absolute;
-    width:600px;
-    height:600px;
-    background:radial-gradient(circle,#06b6d455,transparent 70%);
-    bottom:-200px;
-    right:-150px;
-    animation:move2 8s infinite alternate;
-}
-
-@keyframes move{
-    100%{
-        transform:translateY(60px) translateX(60px);
-    }
-}
-
-@keyframes move2{
-    100%{
-        transform:translateY(-60px) translateX(-60px);
-    }
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    top:0;
+    left:0;
+    opacity:0.15;
 }
 
 .hero-content{
@@ -122,14 +150,13 @@ nav ul li a:hover{
 }
 
 .hero p{
-    letter-spacing:5px;
     color:#93c5fd;
+    letter-spacing:5px;
     margin-bottom:20px;
-    text-transform:uppercase;
 }
 
 .hero h1{
-    font-size:80px;
+    font-size:85px;
     margin-bottom:20px;
 }
 
@@ -137,13 +164,26 @@ nav ul li a:hover{
     color:#3b82f6;
 }
 
+.typing{
+    border-right:3px solid #60a5fa;
+    white-space:nowrap;
+    overflow:hidden;
+    animation:blink .8s infinite;
+}
+
+@keyframes blink{
+    50%{
+        border-color:transparent;
+    }
+}
+
 .hero-desc{
-    max-width:700px;
+    max-width:750px;
     margin:auto;
     color:#cbd5e1;
     line-height:1.8;
-    font-size:18px;
     margin-bottom:40px;
+    font-size:18px;
 }
 
 .buttons{
@@ -154,22 +194,21 @@ nav ul li a:hover{
 }
 
 .btn{
-    padding:15px 35px;
+    padding:16px 35px;
     border-radius:50px;
     text-decoration:none;
-    transition:0.4s;
     font-weight:600;
+    transition:0.4s;
 }
 
 .btn-primary{
-    background:#2563eb;
+    background:linear-gradient(90deg,#2563eb,#06b6d4);
     color:white;
-    box-shadow:0 0 25px #2563eb55;
+    box-shadow:0 0 30px rgba(37,99,235,0.5);
 }
 
 .btn-primary:hover{
     transform:translateY(-5px);
-    background:#3b82f6;
 }
 
 .btn-outline{
@@ -181,7 +220,7 @@ nav ul li a:hover{
     background:#2563eb22;
 }
 
-/* Sections */
+/* SECTION */
 section{
     padding:120px 8%;
 }
@@ -194,22 +233,20 @@ section{
 .section-title h2{
     font-size:45px;
     color:#60a5fa;
-    margin-bottom:10px;
 }
 
-/* About */
+/* ABOUT */
 .about{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:50px;
-    align-items:center;
+    gap:40px;
 }
 
 .about-card{
-    background:rgba(255,255,255,0.05);
-    border:1px solid rgba(255,255,255,0.08);
     padding:40px;
     border-radius:30px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
     backdrop-filter:blur(10px);
     transition:0.4s;
 }
@@ -218,26 +255,26 @@ section{
     transform:translateY(-10px);
 }
 
-.about p{
+.about-card p{
     color:#cbd5e1;
     line-height:1.8;
 }
 
-/* Services */
+/* SERVICES */
 .services{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:25px;
-    margin-top:40px;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-top:30px;
 }
 
 .service-box{
+    padding:30px;
+    border-radius:25px;
+    text-align:center;
     background:rgba(255,255,255,0.05);
     border:1px solid rgba(255,255,255,0.08);
-    padding:35px;
-    border-radius:25px;
     transition:0.4s;
-    text-align:center;
 }
 
 .service-box:hover{
@@ -245,40 +282,97 @@ section{
     border-color:#3b82f6;
 }
 
-.service-box h3{
-    margin:20px 0;
-}
-
-/* Project */
+/* PROJECT */
 .project-card{
-    background:rgba(255,255,255,0.05);
+    max-width:1100px;
+    margin:auto;
     border-radius:30px;
     overflow:hidden;
+    background:rgba(255,255,255,0.05);
     border:1px solid rgba(255,255,255,0.08);
-    transition:0.4s;
+    backdrop-filter:blur(10px);
+    margin-bottom:50px;
 }
 
-.project-card:hover{
-    transform:scale(1.02);
+.project-image{
+    position:relative;
+    overflow:hidden;
 }
 
-.project-card img{
+.project-image img{
     width:100%;
-    height:400px;
+    height:450px;
     object-fit:cover;
+    transition:0.5s;
+}
+
+.project-image:hover img{
+    transform:scale(1.08);
+}
+
+.project-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top,#020617,transparent);
 }
 
 .project-content{
     padding:40px;
 }
 
-.project-content p{
-    color:#cbd5e1;
-    margin:20px 0;
-    line-height:1.8;
+.project-content h2{
+    color:#60a5fa;
+    margin-bottom:20px;
 }
 
-/* Contact */
+.project-content p{
+    color:#cbd5e1;
+    line-height:1.8;
+    margin-bottom:30px;
+}
+
+/* STATS */
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:25px;
+}
+
+.stat-box{
+    padding:40px;
+    border-radius:25px;
+    text-align:center;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.stat-box h2{
+    font-size:45px;
+    color:#60a5fa;
+}
+
+.stat-box p{
+    margin-top:10px;
+    color:#cbd5e1;
+}
+
+/* CLOCK */
+.clock-box{
+    max-width:500px;
+    margin:auto;
+    padding:50px;
+    text-align:center;
+    border-radius:30px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.clock-box h1{
+    font-size:70px;
+    color:#60a5fa;
+}
+
+/* CONTACT */
 .contact-form{
     max-width:800px;
     margin:auto;
@@ -288,10 +382,8 @@ section{
 
 .contact-form input,
 .contact-form textarea{
-    width:100%;
     padding:18px;
     border:none;
-    outline:none;
     border-radius:15px;
     background:#0f172a;
     color:white;
@@ -306,40 +398,52 @@ section{
     color:white;
     font-size:18px;
     cursor:pointer;
+}
+
+/* SOCIAL */
+.social-bar{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    z-index:999;
+}
+
+.social-bar a{
+    width:60px;
+    height:60px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:50%;
+    background:rgba(255,255,255,0.08);
+    color:white;
+    font-size:24px;
+    text-decoration:none;
+    backdrop-filter:blur(10px);
     transition:0.4s;
 }
 
-.contact-form button:hover{
-    background:#3b82f6;
+.social-bar a:hover{
+    background:#2563eb;
+    transform:translateY(-5px);
 }
 
-/* Footer */
+/* FOOTER */
 footer{
     padding:30px;
     text-align:center;
     border-top:1px solid rgba(255,255,255,0.08);
+    color:#cbd5e1;
 }
 
-.insta-link{
-    display:inline-flex;
-    align-items:center;
-    gap:12px;
-    color:white;
-    text-decoration:none;
-    font-size:18px;
-    transition:0.4s;
-}
-
-.insta-link:hover{
-    color:#60a5fa;
-    transform:translateY(-3px);
-}
-
-/* Animation */
+/* ANIMATION */
 .hidden{
     opacity:0;
     transform:translateY(40px);
-    transition:all 1s;
+    transition:1s;
 }
 
 .show{
@@ -347,80 +451,50 @@ footer{
     transform:translateY(0);
 }
 
-/* Responsive */
+/* MOBILE */
 @media(max-width:768px){
-
-nav{
-    padding:20px;
-}
-
-nav ul{
-    gap:15px;
-}
 
 .hero h1{
     font-size:50px;
 }
 
-.section-title h2{
-    font-size:35px;
+.menu-btn{
+    display:block;
 }
 
-.project-card img{
+nav ul{
+    position:absolute;
+    top:90px;
+    right:-100%;
+    flex-direction:column;
+    width:250px;
+    background:#0f172a;
+    padding:30px;
+    border-radius:20px;
+    transition:0.5s;
+}
+
+nav ul.active{
+    right:20px;
+}
+
+.project-image img{
     height:250px;
 }
 
-}
-.project-card{
-    background:rgba(255,255,255,0.05);
-    border-radius:30px;
-    overflow:hidden;
-    border:1px solid rgba(255,255,255,0.08);
-    transition:0.4s;
-    max-width:1100px;
-    margin:auto;
-    backdrop-filter:blur(10px);
+.clock-box h1{
+    font-size:45px;
 }
 
-.project-card:hover{
-    transform:translateY(-10px);
-    box-shadow:0 20px 60px rgba(37,99,235,0.25);
-}
-
-.project-card img{
-    width:100%;
-    height:450px;
-    object-fit:cover;
-}
-
-.project-content{
-    padding:50px;
-}
-
-.project-content h2{
-    font-size:40px;
-    margin-bottom:20px;
-    color:#60a5fa;
-}
-
-.project-content p{
-    color:#cbd5e1;
-    line-height:1.9;
-    font-size:17px;
-}
-#status{
-    margin-top:15px;
-    font-size:16px;
-    font-weight:500;
 }
 .book-box{
     max-width:900px;
     margin:auto;
     text-align:center;
     padding:60px 40px;
+    border-radius:30px;
     background:rgba(255,255,255,0.05);
     border:1px solid rgba(255,255,255,0.08);
-    border-radius:30px;
     backdrop-filter:blur(10px);
 }
 
@@ -470,352 +544,391 @@ nav ul{
     transform:translateY(-5px);
     box-shadow:0 10px 30px rgba(37,211,102,0.4);
 }
+
 </style>
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-<script>
-emailjs.init("MMb4Icy9oEVFhF-Rd");
-</script>
-<script>
-
-const form = document.getElementById("contact-form");
-const statusText = document.getElementById("status");
-
-form.addEventListener("submit", function(e){
-
-    e.preventDefault();
-
-    statusText.innerHTML = "Sending Message...";
-
-    emailjs.sendForm(
-        "service_eha6o3w",
-        "template_zl3od7s",
-        this
-    )
-
-    .then(() => {
-
-        statusText.innerHTML = "Message Sent Successfully ✅";
-        statusText.style.color = "#4ade80";
-
-        form.reset();
-
-    })
-
-    .catch((error) => {
-
-        statusText.innerHTML = "Failed To Send ❌";
-        statusText.style.color = "#f87171";
-
-        console.log(error);
-
-    });
-
-});
-
-</script>
 <body>
 
-<!-- Navbar -->
-<nav>
-    <div class="logo">Sinan Premium Invites</div>
+<!-- LOADER -->
+<div id="loader">
+    <div class="loader-ring"></div>
+</div>
 
-    <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#project">Project</a></li>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
+<!-- PARTICLES -->
+<div id="particles-js"></div>
+
+<!-- GLOW -->
+<div class="glow"></div>
+
+<!-- NAVBAR -->
+<nav>
+
+<div class="logo">Sinan Premium Invites</div>
+
+<div class="menu-btn">
+<i class="fa-solid fa-bars"></i>
+</div>
+
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#project">Projects</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+
 </nav>
 
-<!-- Hero -->
+<!-- HERO -->
 <section class="hero" id="home">
 
+<video autoplay muted loop playsinline class="hero-video">
+<source src="https://cdn.coverr.co/videos/coverr-wedding-sparkler-1579/1080p.mp4" type="video/mp4">
+</video>
+
 <div class="hero-content hidden">
-    <p>Creative Web Designer</p>
 
-    <h1>Sinan <span>U</span></h1>
+<p>Creative Web Designer</p>
 
-    <div class="hero-desc">
-        I create premium wedding invitation websites, save-the-date pages,
-        birthday websites and elegant digital experiences with smooth animations.
-    </div>
+<h1 class="typing">Sinan <span>U</span></h1>
 
-    <div class="buttons">
-        <a href="#project" class="btn btn-primary">View Project</a>
-        <a href="#contact" class="btn btn-outline">Contact Me</a>
-    </div>
+<div class="hero-desc">
+I create premium wedding invitation websites, save-the-date pages,
+birthday websites and elegant digital experiences with cinematic animations.
+</div>
+
+<div class="buttons">
+<a href="#project" class="btn btn-primary">View Projects</a>
+<a href="#contact" class="btn btn-outline">Contact Me</a>
+</div>
+
 </div>
 
 </section>
 
-<!-- About -->
+<!-- ABOUT -->
 <section id="about">
 
 <div class="section-title hidden">
-    <h2>About Me</h2>
-    <p>Modern Event Website Designer</p>
+<h2>About Me</h2>
+<p>Modern Event Website Designer</p>
 </div>
 
 <div class="about">
 
-    <div class="about-card hidden">
-        <h2 style="margin-bottom:20px;">Who Am I?</h2>
+<div class="about-card hidden">
 
-        <p>
-            I design elegant wedding invitation websites with animations,
-            countdowns, galleries, music and modern responsive layouts.
-            My goal is creating unforgettable digital experiences for events.
-        </p>
-    </div>
+<h2 style="margin-bottom:20px;">Who Am I?</h2>
 
-    <div class="about-card hidden">
-        <h2 style="margin-bottom:20px;">Services</h2>
+<p>
+I design elegant wedding invitation websites with countdowns,
+music, animations and premium responsive layouts.
+My goal is creating unforgettable digital experiences.
+</p>
 
-        <div class="services">
+</div>
 
-            <div class="service-box">
-                <h3>Wedding Websites</h3>
-            </div>
+<div class="about-card hidden">
 
-            <div class="service-box">
-                <h3>Save The Date</h3>
-            </div>
+<h2 style="margin-bottom:20px;">Services</h2>
 
-            <div class="service-box">
-                <h3>Birthday Websites</h3>
-            </div>
+<div class="services">
 
-            
-        </div>
+<div class="service-box">
+<h3>Wedding Websites</h3>
+</div>
 
-    </div>
+<div class="service-box">
+<h3>Save The Date</h3>
+</div>
+
+<div class="service-box">
+<h3>Birthday Websites</h3>
+</div>
+
+<div class="service-box">
+<h3>Portfolio Websites</h3>
+</div>
+
+</div>
+
+</div>
 
 </div>
 
 </section>
 
-<!-- PROJECT SECTION -->
+<!-- PROJECTS -->
 <section id="project">
 
-    <div class="section-title hidden">
-        <h2>My Project</h2>
-        <p>Premium Wedding Invitation Website</p>
-    </div>
+<div class="section-title hidden">
+<h2>My Projects</h2>
+<p>Premium Digital Experiences</p>
+</div>
 
-    <div class="project-card hidden">
+<!-- PROJECT 1 -->
+<div class="project-card hidden">
 
-       <img 
-    src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1400&auto=format&fit=crop" 
-    alt="Wedding Invitation Website">
+<div class="project-image">
 
-        <div class="project-content">
+<img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1400&auto=format&fit=crop">
 
-            <h2>Shiama & Junaid Wedding Website</h2>
-
-            <p>
-                Elegant cinematic wedding invitation website with countdown,
-                animations, smooth transitions, premium typography and
-                romantic design experience.
-            </p>
-
-            <div style="display:flex; gap:20px; flex-wrap:wrap; margin-top:25px;">
-
-                <a href="https://s09894355-lgtm.github.io/shiamasheri-junaid/" 
-                target="_blank" 
-                class="btn btn-primary">
-                    View Live Website
-                </a>
-
-                <a href="#contact" class="btn btn-outline">
-                    Hire Me
-                </a>
-
-            </div>
-
-        </div>
-        <!-- SNAKE GAME PROJECT -->
-<div class="project-card hidden" style="margin-top:60px;">
-
-    <img 
-    src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1200&auto=format&fit=crop" 
-    alt="Snake Game Project">
-
-    <div class="project-content">
-
-        <h2>Snake Pro Game</h2>
-
-        <p>
-            Modern arcade-style Snake Game with smooth gameplay,
-            responsive controls, score tracking and premium dark UI design.
-            Built using HTML, CSS and JavaScript.
-        </p>
-
-        <div style="display:flex; gap:20px; flex-wrap:wrap; margin-top:25px;">
-
-            <a href="https://s09894355-lgtm.github.io/SnakeGame/" 
-            target="_blank" 
-            class="btn btn-primary">
-                Play Game
-            </a>
-
-            <a href="#contact" class="btn btn-outline">
-                Hire Me
-            </a>
-
-        </div>
-
-    </div>
+<div class="project-overlay"></div>
 
 </div>
 
-    </div>
+<div class="project-content">
 
-</section>
+<h2>Shiama & Junaid Wedding Website</h2>
 
+<p>
+Elegant cinematic wedding invitation website with countdown,
+animations, transitions and premium romantic design.
+</p>
+
+<div class="buttons">
+
+<a href="https://s09894355-lgtm.github.io/shiamasheri-junaid/"
+target="_blank"
+class="btn btn-primary">
+View Live Website
+</a>
+
+<a href="#contact" class="btn btn-outline">
+Hire Me
+</a>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PROJECT 2 -->
+<div class="project-card hidden">
+
+<div class="project-image">
+
+<img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=1400&auto=format&fit=crop">
+
+<div class="project-overlay"></div>
+
+</div>
+
+<div class="project-content">
+
+<h2>Snake Pro Game</h2>
+
+<p>
+Modern arcade-style Snake Game with responsive controls,
+smooth gameplay and premium dark UI design.
+</p>
+
+<div class="buttons">
+
+<a href="https://s09894355-lgtm.github.io/SnakeGame/"
+target="_blank"
+class="btn btn-primary">
+Play Game
+</a>
+
+<a href="#contact" class="btn btn-outline">
+Hire Me
+</a>
+
+</div>
+
+</div>
 
 </div>
 
 </section>
 
-<!-- Contact -->
+<!-- BOOK NOW -->
+<section>
+
+<div class="section-title hidden">
+<h2>Book My Work</h2>
+<p>Let's Create Your Premium Website</p>
+</div>
+
+<div class="book-box hidden">
+
+<h3>Available For</h3>
+
+<div class="book-services">
+
+<span>Wedding Websites</span>
+<span>Save The Date</span>
+<span>Birthday Websites</span>
+<span>Housewarming Invites</span>
+<span>Portfolio Websites</span>
+
+</div>
+
+<p>
+Click below to chat directly with me on WhatsApp
+for bookings and project discussions.
+</p>
+
+<a 
+href="https://wa.me/918590594972"
+target="_blank"
+class="whatsapp-btn">
+
+<i class="fa-brands fa-whatsapp"></i>
+Chat On WhatsApp
+
+</a>
+
+</div>
+
+</section>
+<!-- CLOCK -->
+<section>
+
+<div class="section-title hidden">
+<h2>Live Studio Time</h2>
+</div>
+
+<div class="clock-box hidden">
+<h1 id="clock"></h1>
+</div>
+
+</section>
+
+<!-- CONTACT -->
 <section id="contact">
 
 <div class="section-title hidden">
-    <h2>Contact Me</h2>
+<h2>Contact Me</h2>
 </div>
-<!-- BOOK WORK SECTION -->
-<section id="book-work">
 
-    <div class="section-title hidden">
-        <h2>Book My Work</h2>
-        <p>Let’s Create Your Premium Event Website</p>
-    </div>
+<form class="contact-form hidden">
 
-    <div class="book-box hidden">
+<input type="text" placeholder="Your Name" required>
 
-        <h3>Available For</h3>
+<input type="email" placeholder="Your Email" required>
 
-        <div class="book-services">
+<textarea rows="6" placeholder="Your Message"></textarea>
 
-            <span>Wedding Websites</span>
-            <span>Save The Date</span>
-            <span>Birthday Websites</span>
-            <span>Housewarming Invites</span>
-            <span>Portfolio Websites</span>
-
-        </div>
-
-        <p>
-            Click the button below to chat directly with me on WhatsApp
-            for bookings and project discussions.
-        </p>
-
-        <a 
-        href="https://wa.me/918590594972"
-        target="_blank"
-        class="whatsapp-btn">
-
-            <i class="fa-brands fa-whatsapp"></i>
-            Book Now On WhatsApp
-
-        </a>
-
-    </div>
-
-</section>
-<form id="contact-form" class="contact-form hidden">
-
-    <input 
-    type="text" 
-    name="from_name"
-    placeholder="Your Name" 
-    required>
-
-    <input 
-    type="email" 
-    name="from_email"
-    placeholder="Your Email" 
-    required>
-
-    <textarea 
-    rows="6" 
-    name="message"
-    placeholder="Your Message"
-    required></textarea>
-
-    <button type="submit">
-        Send Message
-    </button>
-
-    <p id="status"></p>
+<button type="submit">Send Message</button>
 
 </form>
+
+</section>
+
+<!-- SOCIAL -->
+<div class="social-bar">
+
+<a href="https://instagram.com/sinan._u" target="_blank">
+<i class="fa-brands fa-instagram"></i>
+</a>
+
+<a href="https://wa.me/918590594972" target="_blank">
+<i class="fa-brands fa-whatsapp"></i>
+</a>
+
+</div>
+
 <!-- FOOTER -->
 <footer>
-
-    <a href="https://www.instagram.com/sinan._u/" target="_blank" class="insta-link">
-
-        <svg xmlns="http://www.w3.org/2000/svg" 
-        width="26" 
-        height="26" 
-        fill="currentColor" 
-        viewBox="0 0 16 16">
-
-        <path d="M8 0C5.829 0 5.556.01 4.703.048 
-        3.85.088 3.269.222 2.76.42a3.92 
-        3.92 0 0 0-1.417.923A3.92 3.92 
-        0 0 0 .42 2.76c-.198.509-.332 
-        1.09-.372 1.943C.01 5.556 0 5.829 
-        0 8c0 2.171.01 2.444.048 3.297.04.853.174 
-        1.434.372 1.943.205.527.478.974.923 
-        1.417.443.445.89.718 1.417.923.509.198 
-        1.09.332 1.943.372C5.556 15.99 5.829 16 
-        8 16c2.171 0 2.444-.01 3.297-.048.853-.04 
-        1.434-.174 1.943-.372a3.92 3.92 0 0 0 
-        1.417-.923 3.92 3.92 0 0 0 .923-1.417c.198-.509.332-1.09.372-1.943C15.99 
-        10.444 16 10.171 16 8c0-2.171-.01-2.444-.048-3.297-.04-.853-.174-1.434-.372-1.943a3.92 
-        3.92 0 0 0-.923-1.417A3.92 3.92 0 0 0 
-        13.24.42c-.509-.198-1.09-.332-1.943-.372C10.444.01 
-        10.171 0 8 0zm0 1.441c2.136 0 2.389.008 
-        3.232.047.78.036 1.204.166 1.486.276.373.145.64.319.92.599.28.28.454.547.599.92.11.282.24.706.276 
-        1.486.039.843.047 1.096.047 3.232s-.008 
-        2.389-.047 3.232c-.036.78-.166 1.204-.276 
-        1.486a2.48 2.48 0 0 1-.599.92 2.48 2.48 
-        0 0 1-.92.599c-.282.11-.706.24-1.486.276-.843.039-1.096.047-3.232.047s-2.389-.008-3.232-.047c-.78-.036-1.204-.166-1.486-.276a2.48 
-        2.48 0 0 1-.92-.599 2.48 2.48 0 0 1-.599-.92c-.11-.282-.24-.706-.276-1.486C1.449 
-        10.389 1.441 10.136 1.441 8s.008-2.389.047-3.232c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.547-.454.92-.599.282-.11.706-.24 
-        1.486-.276C5.611 1.449 5.864 1.441 8 1.441zm0 
-        2.459A4.1 4.1 0 1 0 8 12.1 4.1 4.1 0 0 0 
-        8 3.9zm0 6.759A2.659 2.659 0 1 1 8 
-        5.341a2.659 2.659 0 0 1 0 5.318zm4.268-6.964a.96.96 
-        0 1 1-1.92 0 .96.96 0 0 1 1.92 0z"/>
-        </svg>
-
-        <span>@sinan._u</span>
-
-    </a>
-
+© 2026 Sinan Premium Invites — All Rights Reserved
 </footer>
+
+<!-- PARTICLES -->
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
 <script>
 
-/* Scroll Animation */
+particlesJS("particles-js", {
 
-const hiddenElements = document.querySelectorAll('.hidden');
+particles:{
+
+number:{value:80},
+
+color:{value:"#3b82f6"},
+
+shape:{type:"circle"},
+
+opacity:{value:0.5},
+
+size:{value:3},
+
+move:{
+enable:true,
+speed:2
+}
+
+}
+
+});
+
+/* LOADER */
+window.addEventListener("load",()=>{
+
+document.getElementById("loader").style.display="none";
+
+});
+
+/* GLOW */
+const glow = document.querySelector(".glow");
+
+document.addEventListener("mousemove",(e)=>{
+
+glow.style.left = e.clientX + "px";
+glow.style.top = e.clientY + "px";
+
+});
+
+/* MOBILE MENU */
+const menuBtn = document.querySelector(".menu-btn");
+const navLinks = document.querySelector("nav ul");
+
+menuBtn.onclick = ()=>{
+
+navLinks.classList.toggle("active");
+
+};
+
+/* SCROLL ANIMATION */
+const hiddenElements = document.querySelectorAll(".hidden");
 
 const observer = new IntersectionObserver((entries)=>{
-    entries.forEach((entry)=>{
-        if(entry.isIntersecting){
-            entry.target.classList.add('show');
-        }
-    });
+
+entries.forEach((entry)=>{
+
+if(entry.isIntersecting){
+
+entry.target.classList.add("show");
+
+}
+
+});
+
 });
 
 hiddenElements.forEach((el)=>observer.observe(el));
+
+/* CLOCK */
+function updateClock(){
+
+const now = new Date();
+
+let h = now.getHours();
+let m = now.getMinutes();
+let s = now.getSeconds();
+
+h = h < 10 ? "0"+h : h;
+m = m < 10 ? "0"+m : m;
+s = s < 10 ? "0"+s : s;
+
+document.getElementById("clock").innerHTML =
+`${h}:${m}:${s}`;
+
+}
+
+setInterval(updateClock,1000);
 
 </script>
 
